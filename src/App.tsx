@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState, useCallback } from 'react';
 import './App.css';
+import { Product } from './Product';
+import { useFetchProducts } from './hook/fetch';
 
 function App() {
+  let [nrOfProducts, setNrOfProducts] = useState(0);
+  const { loading, errorMsg, productList, totalProducts } = useFetchProducts(nrOfProducts)
+
+  console.log( productList )
+  // setNrOfProducts(nrOfProducts += 10)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1> See Products </h1>
+      <Product />
+      <p> TEST </p>
     </div>
   );
 }
