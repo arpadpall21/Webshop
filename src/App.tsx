@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import { useFetchProducts } from './hook/fetch';
 import { Product } from './helper/types';
-import { ProductComponent } from './Product';
+import { ProductComponent } from './component/Product';
 
 
 function App() {
