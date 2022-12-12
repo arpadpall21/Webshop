@@ -1,11 +1,14 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import './App.css';
-import { Product } from './Product';
 import { useFetchProducts } from './hook/fetch';
+import { Product } from './helper/types';
+import { ProductComponent } from './Product';
+
 
 function App() {
   let [nrOfProducts, setNrOfProducts] = useState(0);
-  const { loading, errorMsg, productList, totalProducts } = useFetchProducts(nrOfProducts)
+  const [products, setProductList] = useState<Product[]>([])
+  const { loading, errorMsg, productList, total } = useFetchProducts(nrOfProducts)
 
   console.log( productList )
   // setNrOfProducts(nrOfProducts += 10)
@@ -13,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <h1> See Products </h1>
-      <Product />
+      <ProductComponent product={productList[0]}/>
       <p> TEST </p>
     </div>
   );

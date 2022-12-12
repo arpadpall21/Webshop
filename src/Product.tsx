@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Product(prop: any) {
+export function ProductComponent(prop: any) {
     return (
       <div>
         <p> Title </p>

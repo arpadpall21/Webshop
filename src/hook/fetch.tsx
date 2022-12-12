@@ -1,13 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
-import { FetchResult } from '../helper/types';
+import { FetchResult, Product } from '../helper/types';
 import axios from "axios";
 
 
 export function useFetchProducts(nrOfProducts: number): FetchResult {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setError] = useState('');
-  const [productList, setProductList] = useState<(object)[]>([]);
-  const [totalProducts, setTotalProducts] = useState(0);
+  const [productList, setProductList] = useState<Product[]>([]);
+  const [total, setTotalProducts] = useState(0);
   let [reqNr, setReqNr] = useState(0);
 
   const __fetchProducts = useCallback(async () => {
@@ -32,5 +32,5 @@ export function useFetchProducts(nrOfProducts: number): FetchResult {
     __fetchProducts();
   }, [nrOfProducts]);
 
-  return { loading, errorMsg, productList, totalProducts };
+  return { loading, errorMsg, productList, total };
 }
