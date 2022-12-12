@@ -1,4 +1,4 @@
-export type Product = {
+export interface Product {
   brand: string
   category: string
   description: string

@@ -7,17 +7,25 @@ import { ProductComponent } from './component/Product';
 
 function App() {
   let [nrOfProducts, setNrOfProducts] = useState(0);
-  const [products, setProductList] = useState<Product[]>([])
+  const [productListState, setProductListState] = useState<Product[]>([])
   const { loading, errorMsg, productList, total } = useFetchProducts(nrOfProducts)
 
-  console.log( productList )
+  // setProductListState(productList)
+
+  console.log(productList)
   // setNrOfProducts(nrOfProducts += 10)
+
+  const products = productList.map( p => <ProductComponent product={p} /> );
+
+
+
 
   return (
     <div className="App">
       <h1> See Products </h1>
-      <ProductComponent product={productList[0]}/>
-      <p> TEST </p>
+      <div className='productGrid'>
+        {products}
+      </div>
     </div>
   );
 }
