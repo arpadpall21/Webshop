@@ -12,8 +12,14 @@ export interface Product {
   title: string
 }
 
-export type FetchResult = {
+export type FetchProductListResult = {
   loading: boolean
-  errorMsg: string
+  error: boolean
   productList: Product[]
+}
+
+export type FetchProductResult = {
+  loading: boolean
+  error: boolean
+  product: Product
 }

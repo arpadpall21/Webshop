@@ -1,21 +1,19 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import { useFetchProducts } from './hook/fetch';
-import { ProductComponent } from './component/Product';
+import { useFetchProductList } from './hook/fetch';
+import ProductComponent from './component/Product';
+import ProductPage from './page/ProductPage';
 
 
-function App() {
-  console.count('-------rerendered ----------');
-
-
-
-
+export default function App() {
+  console.count( '---rendered---')
 
   let [nrOfProducts, setNrOfProducts] = useState(0);
-  const { loading, errorMsg, productList } = useFetchProducts(nrOfProducts)
+  const { loading, error, productList } = useFetchProductList(nrOfProducts)
   const controlElement = useRef(null);
 
-  const handleControlElement = useCallback((entries: any) => {
+  const handleControlElement = useCallback((entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
 
     if (target.isIntersecting) {
@@ -33,20 +31,21 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1> See Products </h1>
-      <div className='productGrid'>
-        {productList.map(p => <ProductComponent key={p.id} product={p} />)}
-      </div>
-      <div ref={controlElement} />
-      {loading && <p className='loadingErrorMsg'> Loading...</p>}
-      {errorMsg && <p className='loadingErrorMsg'> {errorMsg} </p>}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={
+          <div className="App">
+            <h1> See Products </h1>
+            <div className='productGrid'>
+              {productList.map(p => <ProductComponent key={p.id} product={p} />)}
+            </div>
+            <div ref={controlElement} />
+            {loading && <p className='loadingErrorMsg'> Loading...</p>}
+            {error && <p className='loadingErrorMsg'> Loading Error! </p>}
+          </div>
+        } />
+        <Route path='/product/:id' element={<ProductPage />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
-
-export default App;
-
-function setPage(arg0: (prev: any) => any) {
-  throw new Error('Function not implemented.');
 }

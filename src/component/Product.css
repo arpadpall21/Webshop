@@ -63,6 +63,7 @@
 }
 
 .detailsButton {
+  display: block;
   text-align: center;
   background-color: black;
   color: white;
@@ -70,8 +71,5 @@
   padding: 15px;
   font-size: 18px;
   margin: 0;
-}
-
-.detailsButton:hover {
-  cursor: pointer;
+  text-decoration: none;
 }

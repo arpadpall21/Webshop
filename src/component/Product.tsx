@@ -3,9 +3,9 @@ import './Product.css'
 import { Product } from '../helper/types';
 
 
-export function ProductComponent(prop: { product: Product }) {
-  const { title, description, discountPercentage, price, thumbnail } = prop.product;
-  const viewWidth = window.innerWidth;      // to addapt product container to view size on render  
+export default function ProductComponent(prop: { product: Product }) {
+  const { title, description, discountPercentage, price, thumbnail, id } = prop.product;
+  const viewWidth = window.innerWidth;      // to addapt view size
 
   return (
     <div className='productContainer' style={{ width: (viewWidth / 100) * 23 }}>
@@ -21,7 +21,7 @@ export function ProductComponent(prop: { product: Product }) {
         <div className="description">
           {description}
         </div>
-        <p className="detailsButton"> See details </p>
+        <a href={`http://localhost:3000/product/${id}`} className="detailsButton"> See details </a>
       </div>
     </div>
   )

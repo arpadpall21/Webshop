@@ -1,22 +1,18 @@
-import { useState, useEffect, useCallback } from "react";
-import { FetchResult, Product } from '../helper/types';
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { Product, FetchProductListResult, FetchProductResult } from '../helper/types';
+import { defaultProduct } from '../helper/defaultTypesValues'
 import axios from "axios";
 
 
-export function useFetchProducts(nrOfProducts: number): FetchResult {
-  console.count('****** useFetchProducts ******')
-
-
-
-
+export function useFetchProductList(nrOfProducts: number): FetchProductListResult {
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setError] = useState('');
+  const [error, setError] = useState(false);
   const [productList, setProductList] = useState<Product[]>([]);
   const [totalProducts, setTotalProducts] = useState(0);
   let [reqNr, setReqNr] = useState(0);
 
   const __fetchProducts = useCallback(async () => {
-    if (totalProducts != 0 && productList.length >= totalProducts) {   // stop requests if all products are already requested 
+    if (totalProducts != 0 && productList.length >= totalProducts) {   // stop requests if all products are already requested
       return;
     }
 
@@ -31,8 +27,8 @@ export function useFetchProducts(nrOfProducts: number): FetchResult {
 
       setLoading(false);
       setReqNr(reqNr++);
-    } catch (err: any) {
-      setError("Loading Error");
+    } catch (err) {
+      setError(true);
       console.error(err);
     }
   }, [nrOfProducts]);
@@ -41,5 +37,27 @@ export function useFetchProducts(nrOfProducts: number): FetchResult {
     __fetchProducts();
   }, [nrOfProducts]);
 
-  return { loading, errorMsg, productList };
+  return { loading, error, productList };
+}
+
+export function useFetchProduct(productId: number): FetchProductResult {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [product, setProduct] = useState<Product>(defaultProduct);
+
+  useMemo(async () => {
+    try {
+      setLoading(true);
+
+      const res = await axios.get(`https://dummyjson.com/products/${productId}`);
+      setProduct(res.data);
+
+      setLoading(false);
+    } catch (err) {
+      setError(true);
+      console.error(err);
+    }
+  }, []);     // only one request when the component mounts
+
+  return { loading, error, product };
 }
