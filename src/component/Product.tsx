@@ -5,7 +5,8 @@ import { Product } from '../helper/types';
 
 export default function ProductComponent(prop: { product: Product }) {
   const { title, description, discountPercentage, price, thumbnail, id } = prop.product;
-  const viewWidth = window.innerWidth;      // to addapt view size
+  const viewWidth = window.innerWidth;      // to addapt screen size (responsive desktop design)
+  const productUrl = window.location.origin + `/product/${id}`;
 
   return (
     <div className='productContainer' style={{ width: (viewWidth / 100) * 23 }}>
@@ -21,7 +22,7 @@ export default function ProductComponent(prop: { product: Product }) {
         <div className="description">
           {description}
         </div>
-        <a href={`http://localhost:3000/product/${id}`} className="detailsButton"> See details </a>
+        <a href= {productUrl} className="detailsButton"> See details </a>
       </div>
     </div>
   )
