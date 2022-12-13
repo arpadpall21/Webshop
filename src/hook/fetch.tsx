@@ -4,13 +4,20 @@ import axios from "axios";
 
 
 export function useFetchProducts(nrOfProducts: number): FetchResult {
+  console.count('****** useFetchProducts ******')
+
+
   const [loading, setLoading] = useState(false);
   const [errorMsg, setError] = useState('');
   const [productList, setProductList] = useState<Product[]>([]);
-  const [total, setTotalProducts] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
   let [reqNr, setReqNr] = useState(0);
 
   const __fetchProducts = useCallback(async () => {
+    if (totalProducts != 0 && productList.length >= totalProducts) {   // stop requests if all products are already requested 
+      return;
+    }
+
     try {
       setLoading(true);
 
@@ -32,5 +39,5 @@ export function useFetchProducts(nrOfProducts: number): FetchResult {
     __fetchProducts();
   }, [nrOfProducts]);
 
-  return { loading, errorMsg, productList, total };
+  return { loading, errorMsg, productList, totalProducts };
 }

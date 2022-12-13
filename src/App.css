@@ -13,3 +13,8 @@ body {
   grid-template-columns: auto auto auto auto;
   grid-gap: 1%;
 }
+
+.loadingErrorMsg {
+  font-weight: bold;
+  font-size: 18px;
+}

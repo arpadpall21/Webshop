@@ -16,5 +16,5 @@ export type FetchResult = {
   loading: boolean
   errorMsg: string
   productList: Product[]
-  total: number
+  totalProducts: number
 }
