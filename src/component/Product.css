@@ -1,7 +1,7 @@
 .productContainer {
   background-color: white;
   border-radius: 10px;
-  height: 400px;
+  height: 430px;
 }
 
 .productContainer>div {
@@ -39,6 +39,12 @@
   margin: 0;
 }
 
+.productTitle>p {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .productTitle>span {
   float: right;
 }
@@ -46,7 +52,6 @@
 .description {
   width: 70%;
   height: 55px;
-  text-overflow: ellipsis;
   margin: 12px 0;
   overflow: hidden;
 }

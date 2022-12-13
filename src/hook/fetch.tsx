@@ -7,6 +7,8 @@ export function useFetchProducts(nrOfProducts: number): FetchResult {
   console.count('****** useFetchProducts ******')
 
 
+
+
   const [loading, setLoading] = useState(false);
   const [errorMsg, setError] = useState('');
   const [productList, setProductList] = useState<Product[]>([]);
@@ -39,5 +41,5 @@ export function useFetchProducts(nrOfProducts: number): FetchResult {
     __fetchProducts();
   }, [nrOfProducts]);
 
-  return { loading, errorMsg, productList, totalProducts };
+  return { loading, errorMsg, productList };
 }

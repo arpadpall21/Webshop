@@ -5,15 +5,19 @@ import { Product } from '../helper/types';
 
 export function ProductComponent(prop: { product: Product }) {
   const { title, description, discountPercentage, price, thumbnail } = prop.product;
+  const viewWidth = window.innerWidth;      // to addapt product container to view size on render  
 
   return (
-    <div className='productContainer'>
+    <div className='productContainer' style={{ width: (viewWidth / 100) * 23 }}>
       <div>
         <div className="thumbnailContainer">
           <span className='discountPercentage'> {-discountPercentage} % </span>
           <img className='thumbnail' src={thumbnail} alt='product thumbnail'></img>
         </div>
-        <p className="productTitle"> {title} <span>{price} $</span> </p>
+        <div className="productTitle"> 
+          <span>{price} $</span>
+          <p style={{ width: (viewWidth / 100) * 16 }} title={title}> {title} </p>
+        </div>
         <div className="description">
           {description}
         </div>

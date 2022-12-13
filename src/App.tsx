@@ -12,7 +12,7 @@ function App() {
 
 
   let [nrOfProducts, setNrOfProducts] = useState(0);
-  const { loading, errorMsg, productList, totalProducts } = useFetchProducts(nrOfProducts)
+  const { loading, errorMsg, productList } = useFetchProducts(nrOfProducts)
   const controlElement = useRef(null);
 
   const handleControlElement = useCallback((entries: any) => {
@@ -24,7 +24,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const option = { root: null, rootMargin: '20px', threshold: 0 };
+    const option = { root: null, rootMargin: '500px', threshold: 1 };
     const observer = new IntersectionObserver(handleControlElement, option);
 
     if (controlElement.current) {
