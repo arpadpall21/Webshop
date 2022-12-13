@@ -14,9 +14,10 @@ export function ProductComponent(prop: { product: Product }) {
           <img className='thumbnail' src={thumbnail} alt='product thumbnail'></img>
         </div>
         <p className="productTitle"> {title} <span>{price} $</span> </p>
-        <p className="description"> {description} </p>
+        <div className="description">
+          {description}
+        </div>
         <p className="detailsButton"> See details </p>
-        <br />
       </div>
     </div>
   )

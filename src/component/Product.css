@@ -1,9 +1,10 @@
 .productContainer {
   background-color: white;
   border-radius: 10px;
+  height: 400px;
 }
 
-.productContainer > div {
+.productContainer>div {
   width: 96%;
   margin: 2%;
   text-align: left;
@@ -12,7 +13,8 @@
 .thumbnail {
   border-radius: 10px;
   width: 100%;
-  margin: 2% 0;
+  height: 220px;
+  margin: 2px 0;
 }
 
 .thumbnailContainer {
@@ -21,10 +23,10 @@
 
 .discountPercentage {
   position: absolute;
-  right: 15px;
-  top: 8%;
+  right: 12px;
+  top: 12px;
   background-color: #6100ff;
-  padding: 12px;
+  padding: 10px;
   color: white;
   border-radius: 30px;
   font-size: 16px;
@@ -32,16 +34,26 @@
 
 .productTitle {
   font-weight: bold;
-  font-size: 22px;
+  font-size: 18px;
   margin: 0;
 }
 
-.productTitle > span {
+.productTitle>span {
   float: right;
 }
 
 .description {
-  width: 60%;
+  width: 70%;
+  height: 55px;
+  text-overflow: ellipsis;
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+.description>p {
+  margin: 0;
+  text-overflow: clip;
+  overflow: hidden;
 }
 
 .detailsButton {
@@ -51,6 +63,7 @@
   border-radius: 30px;
   padding: 15px;
   font-size: 18px;
+  margin: 0;
 }
 
 .detailsButton:hover {
