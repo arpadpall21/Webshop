@@ -1,10 +1,10 @@
-.productContainer {
+.productListContainer {
   background-color: white;
   border-radius: 10px;
   height: 430px;
 }
 
-.productContainer>div {
+.productListContainer>div {
   width: 96%;
   margin: 2%;
   text-align: left;

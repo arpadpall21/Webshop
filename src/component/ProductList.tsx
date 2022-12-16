@@ -1,15 +1,14 @@
-import React from 'react';
-import './Product.css'
+import './ProductList.css'
 import { Product } from '../helper/types';
 
 
-export default function ProductComponent(prop: { product: Product }) {
+export default function ProductListComponent(prop: { product: Product }) {
   const { title, description, discountPercentage, price, thumbnail, id } = prop.product;
-  const viewWidth = window.innerWidth;      // to addapt screen size (responsive desktop design)
+  const viewWidth = window.innerWidth;      // adapt screen size (responsive desktop design)
   const productUrl = window.location.origin + `/product/${id}`;
 
   return (
-    <div className='productContainer' style={{ width: (viewWidth / 100) * 23 }}>
+    <div className='productListContainer' style={{ width: (viewWidth / 100) * 23 }}>
       <div>
         <div className="thumbnailContainer">
           <span className='discountPercentage'> {-discountPercentage} % </span>
