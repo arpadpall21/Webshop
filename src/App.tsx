@@ -1,13 +1,15 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useFetchProductList } from './hook/fetch';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css';
-import ProductListComponent from './component/ProductList';
-import ProductPage from './page/ProductPage';
+import './css/App.css';
+import ProductList from './ProductList';
+import ProductPage from './page/product/App';
 
 
 export default function App() {
   console.count( '---rendered---')
+
+
 
   let [nrOfProducts, setNrOfProducts] = useState(0);
   const { loading, error, productList } = useFetchProductList(nrOfProducts)
@@ -37,7 +39,7 @@ export default function App() {
           <div className="App">
             <h1> See Products </h1>
             <div className='productGrid'>
-              {productList.map(p => <ProductListComponent key={p.id} product={p} />)}
+              {productList.map(p => <ProductList key={p.id} product={p} />)}
             </div>
             <div ref={controlElement} />
             {loading && <p className='loadingErrorMsg'> Loading...</p>}

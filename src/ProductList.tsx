@@ -1,8 +1,8 @@
-import './ProductList.css'
-import { Product } from '../helper/types';
+import './css/ProductList.css'
+import { Product } from './helper/types';
 
 
-export default function ProductListComponent(prop: { product: Product }) {
+export default function ProductList(prop: { product: Product }) {
   const { title, description, discountPercentage, price, thumbnail, id } = prop.product;
   const viewWidth = window.innerWidth;      // adapt screen size (responsive desktop design)
   const productUrl = window.location.origin + `/product/${id}`;

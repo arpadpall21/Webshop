@@ -50,8 +50,8 @@ export function useFetchProduct(productId: number): FetchProductResult {
       setLoading(true);
 
       const res = await axios.get(`https://dummyjson.com/products/${productId}`);
-      setProduct(res.data);
 
+      setProduct(res.data);
       setLoading(false);
     } catch (err) {
       setError(true);

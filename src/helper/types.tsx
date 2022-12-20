@@ -1,3 +1,5 @@
+import { ImgHTMLAttributes } from "react"
+
 export type Product = {
   brand: string
   category: string

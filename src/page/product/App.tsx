@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useFetchProduct } from '../hook/fetch';
-import './ProductPageStyle.css';
+import { useFetchProduct } from '../../hook/fetch';
+import './css/Main.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import SlideShow from "./SlideShow";
+
 
 export default function ProductPage() {
   console.log('ProductPage rerendered -------------------')
@@ -11,22 +13,20 @@ export default function ProductPage() {
   const productId = Number(useParams().id);
   const { loading, error, product } = useFetchProduct(productId);
 
-
   if (loading) {
-    return <p className='loadingErrorMsg'> Loading... </p>
+    return    // waiting untill request finishes
   }
 
   if (error) {
-    return <p className='loadingErrorMsg'> Loading Error! </p>
+    return <p className='errorMsg'> Loading Error! </p>
   }
 
   const { images, title, description, price, discountPercentage, rating, stock, brand, category } = product
 
+
   return (
     <div className='productContainer'>
-      <div className='slideShow'>
-
-      </div>
+      <SlideShow images={images}/>
       <div className='content'>
         <div className='titleContainer'>
           <div title={title}> {title} </div>
@@ -48,18 +48,14 @@ export default function ProductPage() {
 
 function computeRatingVisual(rating: number) {
   const stars = [];
-  for (let i = 1; i <= 5; i++) {
-    if (Math.floor(rating) <= i) {
-      stars.push(<FontAwesomeIcon style={{ color: '#6100ff' }} icon={faStar} />)
+  for (let i = 0; i < 5; i++) {
+    if (Math.floor(rating) > i) {
+      stars.push(<FontAwesomeIcon key={i} style={{ color: '#6100ff' }} icon={faStar} />)
       continue;
     }
 
-    stars.push(<FontAwesomeIcon style={{ color: 'gray' }} icon={faStar} />)
+    stars.push(<FontAwesomeIcon key={i} style={{ color: 'gray' }} icon={faStar} />)
   }
 
-  return (
-    <span>
-      {stars} &nbsp;{rating}
-    </span>
-  )
+  return <span> {stars} &nbsp;{rating} </span>
 }

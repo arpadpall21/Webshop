@@ -10,7 +10,7 @@ body {
   text-align: center;
 }
 
-.loadingErrorMsg {
+.errorMsg {
   font-weight: bold;
   font-size: 18px;
 }
@@ -21,16 +21,12 @@ body {
   grid-gap: 0;
   width: 90%;
   margin: 5%;
-  border: solid black 1px;
-}
-
-.slideShow {
-
 }
 
 .content {
   text-align: left;
   font-size: 25px;
+  margin-left: 15px;
 }
 
 .titleContainer {
@@ -39,7 +35,7 @@ body {
   font-weight: bold;
 }
 
-.titleContainer>*:nth-child(1) {
+.titleContainer>div:nth-child(1) {
   margin: auto auto auto 0;
   max-width: auto;
   height: 60px;
@@ -47,7 +43,7 @@ body {
   font-size: 50px;
 }
 
-.titleContainer>*:nth-child(2) {
+.titleContainer>div:nth-child(2) {
   margin: auto 0 auto auto;
   white-space: nowrap;
   width: 200px;
@@ -95,7 +91,7 @@ body {
   text-align: right;
   background-color: black;
   color: white;
-  padding: 20px 40px;
+  padding: 20px 60px;
   border-radius: 30px;
 }
 
