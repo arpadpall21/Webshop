@@ -1,10 +1,5 @@
-html {
-  height: 100%;
-}
-
-body {
+.productContainerOuter {
   display: flex;
-  min-height: 100%;
   flex-direction: column;
   justify-content: center;
   text-align: center;

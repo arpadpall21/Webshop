@@ -25,3 +25,15 @@ export type FetchProductResult = {
   error: boolean
   product: Product
 }
+
+export type StoreState = {
+  cartProducts: number[]
+}
+
+export type StoreAction = {
+  type: string
+  payload: {
+    actionName: 'addProductToCart' | 'removeProductFromCart',
+    productId: number
+  }
+}
