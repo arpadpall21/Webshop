@@ -4,11 +4,16 @@ import SlideShow from "./SlideShow";
 import './css/App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { store, alterCartContent, getSessionCartContent } from '../../store'
 
 
 export default function ProductPage(): any {
   const productId = Number(useParams().id);
   const { loading, error, product } = useFetchProduct(productId);
+
+  const addProductToCartHandler = () => {
+    store.dispatch(alterCartContent({ actionName: 'addProductToCart', productId }));
+  }
 
   if (loading) {
     return    // waiting untill request finishes
@@ -36,7 +41,7 @@ export default function ProductPage(): any {
           <p className='dicountPercent'><span> {-discountPercentage} % </span></p>
           <div className='priceAddCart'>
             <div> {price}$ </div>
-            <div> Add to cart </div>
+            <div onClick={addProductToCartHandler}> Add to cart </div>
           </div>
         </div>
       </div>

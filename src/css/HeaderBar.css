@@ -1,9 +1,18 @@
 .headerBar {
   text-align: center;
+  width: 100%;
+  background-color: white;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+}
+
+.headerBar>div {
+  background-color: red;
 }
 
 .shopName {
-  font-size: 40px;
+  font-size: 47px;
   font-weight: bold;
   color: black;
   text-decoration: none;
@@ -14,6 +23,7 @@
   position: relative;
   padding: 10px 20px;
   font-size: 35px;
+  color: black;
 }
 
 .cart>span {

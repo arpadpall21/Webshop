@@ -8,18 +8,36 @@ const slice = createSlice({
   },
   reducers: {
     alterCartContent: (state: StoreState, action: StoreAction): void => {
+      const sessionCartContent = getSessionCartContent();
+      const productId = action.payload.productId;
+
       switch (action.payload.actionName) {
         case 'addProductToCart':
-          if (!state.cartProducts.includes(action.payload.productId)) {
-            state.cartProducts.push(action.payload.productId);
+          if (!sessionCartContent.includes(productId)) {
+            sessionCartContent.push(productId);
+            window.sessionStorage.setItem('cart', JSON.stringify(sessionCartContent));
+            state.cartProducts = sessionCartContent;
           }
-          break
+          break;
         case 'removeProductFromCart':
-          state.cartProducts.splice(state.cartProducts.indexOf(action.payload.productId), 1);
+          if (sessionCartContent.indexOf(productId) >= 0) {
+            sessionCartContent.splice(sessionCartContent.indexOf(productId), 1);
+            window.sessionStorage.setItem('cart', JSON.stringify(sessionCartContent));
+            state.cartProducts = sessionCartContent;
+          }
       }
     }
   }
 })
 
-export const { alterCartContent } = slice.actions;
+export function getSessionCartContent(): number[] {
+  const sessionCartContent = window.sessionStorage.getItem('cart');
+
+  if (sessionCartContent?.length) {
+    return JSON.parse(sessionCartContent);
+  }
+  return [];
+}
+
 export const store = configureStore({ reducer: slice.reducer });
+export const { alterCartContent } = slice.actions;

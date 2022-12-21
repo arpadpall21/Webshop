@@ -57,7 +57,33 @@ export function useFetchProduct(productId: number): FetchProductResult {
       setError(true);
       console.error(err);
     }
-  }, []);     // only one request when the component mounts
+  }, []);     // one request when the component mounts only
 
   return { loading, error, product };
+}
+
+export function useSelectedProducts(productIdList: number[], productListState: Product[]): FetchProductListResult {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [productList, setProductList] = useState<Product[]>(productListState);
+  const requestResult: Product[] = [];
+
+  useMemo(async () => {
+    try {
+      setLoading(true);
+
+      for (let productId of productIdList) {
+        const res = await axios.get(`https://dummyjson.com/products/${productId}`);
+        requestResult.push(res.data)
+      }
+
+      setProductList(requestResult);
+      setLoading(false);
+    } catch (err) {
+      setError(true);
+      console.error(err);
+    }
+  }, []);     // one request when the component mounts only
+
+  return { loading, error, productList };
 }

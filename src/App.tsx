@@ -4,14 +4,19 @@ import './css/App.css';
 import ProductList from './ProductList';
 import HeaderBar from './HeaderBar';
 import ProductPage from './page/product/App';
+import CartPage from './page/cart/App';
 import { useFetchProductList } from './hook/fetch';
-import { store } from './store';
+import { store, getSessionCartContent } from './store';
 
 
 export default function App() {
   let [nrProductsToFetch, setNrOfProducts] = useState(0);
-  const [nrOfProductsInCart, setNrOfProductsInCart] = useState(store.getState().cartProducts.length)
-  
+  const [nrOfProductsInCart, setNrOfProductsInCart] = useState(getSessionCartContent().length);
+
+  store.subscribe(() => {
+    setNrOfProductsInCart(getSessionCartContent().length);
+  })
+
   const { loading, error, productList } = useFetchProductList(nrProductsToFetch)
   const controlElement = useRef(null);
 
@@ -35,6 +40,7 @@ export default function App() {
   return (
     <div>
       <HeaderBar nrOfProductsInCart={nrOfProductsInCart} />
+      <br />
       <BrowserRouter>
         <Routes>
           <Route path='/' element={
@@ -48,6 +54,7 @@ export default function App() {
             </div>
           } />
           <Route path='/product/:id' element={<ProductPage />} />
+          <Route path='/cart' element={<CartPage />} />
         </Routes>
       </BrowserRouter>
     </div>
