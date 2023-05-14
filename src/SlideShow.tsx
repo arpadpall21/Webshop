@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import './css/SlideShow.css'
+import styles from './SlideShow.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -7,7 +7,7 @@ import { faChevronLeft, faChevronRight, faCircle } from "@fortawesome/free-solid
 let autoSliderDirection = 'right';
 let autoSliderOn = true;
 
-export default function SlideShow(props: { images: string[] }) {
+function SlideShow(props: { images: string[] }) {
   const slider = useRef() as any;
   const dotPosIndicator = useRef() as any;
   const nrOfImages = props.images.length;
@@ -47,19 +47,33 @@ export default function SlideShow(props: { images: string[] }) {
   }, [])
 
   return (
-    <div className='slideShowContainer'>
-      <div className='arrowLeft' onClick={e => moveSlider(e, 'left')}><FontAwesomeIcon icon={faChevronLeft} /></div>
-      <div className='slider'>
-        <div className='sliderGrid' ref={slider} style={{ width: `${props.images.length * 40}vw` }}>{props.images.map((img, idx) =>
-          <div className='frame' key={idx}><img key={idx} src={img}></img></div>
-        )}</div>
+    <div className={styles['slide-show-container']}>
+      <div className={styles['arrow-left']} onClick={e => moveSlider(e, 'left')}>
+        <FontAwesomeIcon icon={faChevronLeft} />
       </div>
-      <div className='arrowRight' onClick={e => moveSlider(e, 'right')}><FontAwesomeIcon icon={faChevronRight} /></div>
-      <div className='dotMap'>
-        <span>
-          {computeDotMap(nrOfImages)}
-          <span className='currentDotPostion' ref={dotPosIndicator}><FontAwesomeIcon style={{ color: '#6100ff' }} icon={faCircle} /></span>
-        </span></div>
+      <div className={styles['slider']}>
+        <div 
+          className={styles['slider-grid']} 
+          ref={slider} 
+          style={{ width: `${props.images.length * 40}vw` }}
+        >
+          { props.images.map((img, idx) =>
+            <div className={styles['frame']} key={idx}>
+              <img key={idx} src={img} />
+            </div>
+          ) }
+        </div>
+      </div>
+      <div className={styles['arrow-right']} onClick={e => moveSlider(e, 'right')}>
+        <FontAwesomeIcon icon={faChevronRight} />
+      </div>
+      <div className={styles['dot-map']}>
+        <span> {computeDotMap(nrOfImages)}
+          <span className={styles['current-dot-postion']} ref={dotPosIndicator}>
+            <FontAwesomeIcon style={{ color: '#6100ff' }} icon={faCircle} />
+          </span>
+        </span>
+      </div>
     </div>
   )
 }
@@ -82,3 +96,5 @@ function alterSliderDirection(direction: string): string {
     return 'left'
   }
 }
+
+export default SlideShow;

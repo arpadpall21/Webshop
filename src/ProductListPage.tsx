@@ -1,15 +1,22 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './css/App.css';
+import styles from './ProductListPage.module.scss';
 import ProductList from './ProductList';
-import HeaderBar from './HeaderBar';
-import ProductPage from './page/product/App';
-import CartPage from './page/cart/App';
+import ProductPage from './ProductPage';
+import CartPage from './CartPage';
 import { useFetchProductList } from './hook/fetch';
 import { store, getSessionCartContent } from './store';
 
 
-export default function App() {
+import { useFetchProductQuery, useFetchProductListQuery } from './store/slice/productApiSlice';
+
+
+
+function ProductListPage() {
+  // console.log( useFetchProductQuery(1) )
+  console.log( useFetchProductListQuery(99) )
+
+
   let [nrProductsToFetch, setNrOfProducts] = useState(0);
   const [nrOfProductsInCart, setNrOfProductsInCart] = useState(getSessionCartContent().length);
 
@@ -35,38 +42,18 @@ export default function App() {
     if (controlElement.current) {
       observer.observe(controlElement.current);
     }
-  }, [])
+  }, [handleControlElement])
 
   return (
-    <div>
-      <HeaderBar nrOfProductsInCart={nrOfProductsInCart} />
-      <br />
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={
-            <div className="App">
-              <div className='productGrid'>
-                {productList.map(p => <ProductList key={p.id} product={p} />)}
-              </div>
-              <div ref={controlElement} />
-              {loading && <p className='loadingErrorMsg'> Loading...</p>}
-              {error && <p className='loadingErrorMsg'> Loading Error! </p>}
-            </div>
-          } />
-          <Route path='/product/:id' element={<ProductPage />} />
-          <Route path='/cart' element={<CartPage />} />
-        </Routes>
-      </BrowserRouter>
+    <div className={styles['app']}>
+      <div className={styles['product-grid']}>
+        {productList.map(p => <ProductList key={p.id} product={p} />)}
+      </div>
+      <div ref={controlElement} />
+      {loading && <p className={styles['loading-error-msg']}> Loading...</p>}
+      {error && <p className={styles['loading-error-msg']}> Loading Error! </p>}
     </div>
   )
 }
 
-
-
-
-/*
-- top header where we have the back to the product page and the cart (in all pages)
-  
-
-
-*/
+export default ProductListPage;

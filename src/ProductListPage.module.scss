@@ -1,0 +1,17 @@
+.app {
+  text-align: center;
+  width: 94%;
+  margin: 3%;
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+  }
+
+  .loading-error-msg {
+    font-weight: bold;
+    font-size: 22px;
+    
+  }
+}

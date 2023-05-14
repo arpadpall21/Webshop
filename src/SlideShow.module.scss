@@ -1,0 +1,67 @@
+.slide-show-container {
+  display: grid;
+  grid: 1fr / 45px auto 50px;
+
+  .arrow-left {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+
+  .slider {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    width: 40vw;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+
+    .slider-grid {
+      position: absolute;
+      transition: margin 1s;
+
+      .frame {
+        float: left;
+
+        img {
+          display: block;
+          width: 40vw;
+          height: 600px;
+        }
+      }
+
+    }
+  }
+
+  .arrow-right {
+    grid-column-start: 3;
+    grid-column-end: 4;
+  }
+
+  .dot-map {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    font-size: 14px;
+    white-space: pre;
+    padding: 20px;
+
+    .current-dot-postion {
+      position: absolute;
+      left: 0;
+      transition: left 1s;
+    }
+
+    span {
+      position: relative;
+    }
+  }
+
+  .arrow-left, .arrow-right {
+    color: gray;
+    font-size: 35px;
+    margin: auto;
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
