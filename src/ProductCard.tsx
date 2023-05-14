@@ -1,11 +1,10 @@
-import styles from './ProductList.module.scss';
-import { Product } from './helper/types';
+import { Link } from 'react-router-dom';
+import styles from './ProductCard.module.scss';
 
 
-function ProductList(props: { product: Product }) {
+function ProductList(props) {
   const { title, description, discountPercentage, price, thumbnail, id } = props.product;
   const viewWidth = window.innerWidth;      // adapt screen size (responsive desktop design)
-  const productUrl = window.location.origin + `/product/${id}`;
 
   return (
     <div className={styles['product-list-container']} style={{ width: (viewWidth / 100) * 23 }}>
@@ -21,7 +20,7 @@ function ProductList(props: { product: Product }) {
         <div className={styles['description']}>
           {description}
         </div>
-        <a href= {productUrl} className={styles['details-button']}> See details </a>
+        <Link className={styles['details-button']} to={`/product/${id}`}> Details </Link>
       </div>
     </div>
   )

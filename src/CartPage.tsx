@@ -1,44 +1,41 @@
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styles from './CartPage.module.scss';
-import { getSessionCartContent } from './store';
-import { useSelectedProducts } from './hook/fetch';
-import { store, alterCartContent } from './store';
-import { Product } from './helper/types';
+import { selectCart, removeProductFromCart, Product } from './store/slice/cartSlice';
 
 function CartPage(): any {
-  const [productListState, setProductListState] = useState<Product[]>([]);
-  const { loading, error, productList } = useSelectedProducts(getSessionCartContent(), productListState);
+  const dispatch = useDispatch();
+  const cartList = useSelector(selectCart);
 
-  const removeProductFromCartHandler = (e: any, productId: number) => {
-    store.dispatch(alterCartContent({ actionName: 'removeProductFromCart', productId }));
-
-    for (let i = 0; i < productList.length; i++) {
-      if (productList[i].id === productId) {
-        productList.splice(i, 1);
-      }
-    }
-    setProductListState(productList);
-  }
-
-  if (loading) {
-    return <p className={styles['error-loading-msg']}> Loading... </p>
-  }
-
-  if (error) {
-    return <p className={styles['error-loading-msg']}> Loading Error! </p>
+  const removeProductFromCartHandler = (e: React.MouseEvent<HTMLSpanElement>, product: Product): void => {
+    dispatch(removeProductFromCart(product));
   }
 
   let totalPrice = 0;
   return (
     <div className={styles['cart-container']}>
-      {productList.map((product, idx) => {
+      {Object.keys(cartList).map((productId) => {
+        const product = cartList[productId];
         totalPrice += product.price;
-        return <div className={styles['cart-product']} key={idx}>
-          <img src={product.thumbnail} alt={product.thumbnail}></img>
-          <span className={styles['cart-product-title']}>{product.title} </span>
-          <span className={styles['cart-product-price']}>{product.price}$</span>
-          <span className={styles['remove-product-button']} onClick={e => removeProductFromCartHandler(e, product.id)}> Remove </span>
-        </div>
+
+        return (
+          <div className={styles['cart-product']} key={product.id}>
+            <img src={product.thumbnail} alt={product.thumbnail} />
+            <Link
+              className={styles['cart-product-title']}
+              to={`/product/${productId}`}
+            >
+              {product.title}
+            </Link>
+            <span className={styles['cart-product-price']}> {product.price}$ </span>
+            <span
+              className={styles['remove-product-button']}
+              onClick={e => removeProductFromCartHandler(e, product)}
+            >
+              Remove
+            </span>
+          </div>
+        )
       })}
       <div className={styles['total-price']}> Total: {totalPrice}$ </div>
     </div>

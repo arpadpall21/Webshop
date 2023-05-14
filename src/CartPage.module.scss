@@ -6,7 +6,7 @@
 }
 
 .cart-container {
-  margin-top: 55px;
+  margin-top: 70px;
 
   .cart-product {
     display: flex;
@@ -23,6 +23,8 @@
     .cart-product-title {
       margin: auto auto auto 15px;
       font-size: 20px;
+      text-decoration: none;
+      color: black;
     }
 
     .cart-product-price {

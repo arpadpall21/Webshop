@@ -1,26 +1,38 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
-import { useFetchProduct } from './hook/fetch';
 import SlideShow from "./SlideShow";
 import styles from './ProductPage.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { store, alterCartContent, getSessionCartContent } from './store';
+import { useFetchProductQuery } from "./store/slice/productApiSlice";
+import { addProductToCart, removeProductFromCart, cartHasProduct } from './store/slice/cartSlice';
 
 
-function ProductPage(): any {
+function ProductPage() {
+  const dispatch = useDispatch();
   const productId = Number(useParams().id);
-  const { loading, error, product } = useFetchProduct(productId);
+  const { isLoading, isError, data: product } = useFetchProductQuery(productId);
+  const [cartHasThisProduct, setCartHasThisProduct] = useState(cartHasProduct(product));
+  const addProductButtonBackgroundColor = cartHasThisProduct ? 'lightCoral' : 'seaGreen';
 
-  const addProductToCartHandler = () => {
-    store.dispatch(alterCartContent({ actionName: 'addProductToCart', productId }));
+  if (isLoading) {
+    return <p className={styles['error-msg']}> Loading... </p>
   }
 
-  if (loading) {
-    return    // waiting untill request finishes
-  }
-
-  if (error) {
+  if (isError) {
     return <p className={styles['error-msg']}> Loading Error! </p>
+  }
+
+  const productInCartHandler = () => {
+    if (cartHasThisProduct) {
+      dispatch(removeProductFromCart(product));
+      setCartHasThisProduct(false);
+      return;
+    }
+
+    dispatch(addProductToCart(product));
+    setCartHasThisProduct(true);
   }
 
   const { images, title, description, price, discountPercentage, rating, stock, brand, category } = product
@@ -41,7 +53,12 @@ function ProductPage(): any {
           <p className={styles['dicount-percent']}><span> {-discountPercentage} % </span></p>
           <div className={styles['price-add-cart']}>
             <div> {price}$ </div>
-            <div onClick={addProductToCartHandler}> Add to cart </div>
+            <div
+              style={{backgroundColor: addProductButtonBackgroundColor}}
+              onClick={productInCartHandler}
+            >
+              {cartHasThisProduct ? 'Remove from cart' : 'Add to cart'}
+            </div>
           </div>
         </div>
       </div>

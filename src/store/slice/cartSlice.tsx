@@ -1,29 +1,50 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Store } from '../store';
+import store, { Store } from '../store';
 
-export type ProductId = number;
-export type CartSlice = ProductId[];
+
+export type Url = string;
+export type Product = {
+  id: number
+  title: string
+  description: string
+  price: number
+  discountPercentage: number
+  rating: number
+  stock: number
+  brand: string
+  category: string
+  thumbnail: Url
+  images: Url[]
+}
+export type CartSlice = {
+  [productId: string]: Product
+}
 type Action = {
-  type: string,
-  payload: ProductId
+  type: string
+  payload: Product
 }
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: [] as CartSlice,
+  initialState: {} as CartSlice,
   reducers: {
-    addProductId: (state: CartSlice, action: Action):void => {
-      state.push(action.payload);
+    addProductToCart: (state: CartSlice, action: Action): void => { 
+      state[action.payload.id] = action.payload;
     },
-    removeProductId: (state: CartSlice, action: Action):void => {
-      state.splice(state.indexOf(action.payload), 1);
+    removeProductFromCart: (state: CartSlice, action: Action): void => {
+      delete state[action.payload.id];
     },
   }
 });
 
-export function selectCartSlice (store: Store): CartSlice {
-  return store.cartSlice;
+export const cartHasProduct = (product: Product) => {
+  if (product) {
+    return product.id in store.getState().cart;
+  }
+
+  return false;
 }
 
-export const { addProductId, removeProductId } = cartSlice.actions;
+export const selectCart = (store: Store): CartSlice => store.cart
+export const { addProductToCart, removeProductFromCart } = cartSlice.actions;
 export default cartSlice;

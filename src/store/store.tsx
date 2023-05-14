@@ -3,7 +3,7 @@ import cartSlice, { CartSlice } from './slice/cartSlice';
 import productApiSlice, { ProductApiSlice } from './slice/productApiSlice';
 
 export type Store = {
-  cartSlice: CartSlice,
+  cart: CartSlice,
   productApiSlice: ProductApiSlice,
 }
 

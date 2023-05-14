@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import './index.module.scss';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route} from 'react-router-dom';
 import store from './store/store';
-
 import MainLayout from './MainLayout';
 import ProductListPage from './ProductListPage';
 import ProductPage from './ProductPage';
