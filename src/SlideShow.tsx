@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './SlideShow.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,7 @@ let autoSliderOn = true;
 
 
 function SlideShow(props: { images: Url[] }) {
+  const [count, setCount] = useState(0);
   const slider = useRef<HTMLDivElement>(null);
   const dotPosIndicator = useRef<HTMLSpanElement>(null);
   const nrOfImages = props.images.length;
@@ -22,20 +23,16 @@ function SlideShow(props: { images: Url[] }) {
 
     if (slider.current && dotPosIndicator.current) {
       const sliderPosition = slider.current.style.marginLeft ? Number.parseInt(slider.current.style.marginLeft) : 0;
-      const dotMapPosition = dotPosIndicator.current.style.left ? Number.parseInt(dotPosIndicator.current.style.left) : 2;
-
-      // console.log(sliderPosition);
-      // console.log(dotMapPosition);
-      // console.log(direction)
+      const dotMapPosition = dotPosIndicator.current.style.left ? Number.parseInt(dotPosIndicator.current.style.left) : 0;
 
       if (direction === 'left' && sliderPosition < 0) {                           // slider moves right (if possible)
         slider.current.style.marginLeft = `${sliderPosition + 100}%`
-        dotPosIndicator.current.style.left = `${dotMapPosition - 30}px`;
+        dotPosIndicator.current.style.left = `${dotMapPosition - 29}px`;
         return true;
       }
       if (direction === 'right' && sliderPosition > (-nrOfImages * 100) + 100) {  // slider moves left (if possible)
         slider.current.style.marginLeft = `${sliderPosition - 100}%`
-        dotPosIndicator.current.style.left = `${dotMapPosition + 30}px`;
+        dotPosIndicator.current.style.left = `${dotMapPosition + 29}px`;
         return true;
       }
     }
@@ -47,9 +44,8 @@ function SlideShow(props: { images: Url[] }) {
   }
 
   useEffect(() => {
-    console.log('use effect triggered')
-    setInterval(() => {
-      console.log(1)
+    setTimeout(() => {
+      setCount(count + 1)
       if (!autoSliderOn) {
         return;
       }
@@ -58,7 +54,7 @@ function SlideShow(props: { images: Url[] }) {
         moveSlider(alterSliderDirection(sliderDirection));
       }
     }, 4000);
-  })
+  }, [count]);
 
   return (
     <div className={styles['slide-show-container']}>
@@ -82,7 +78,7 @@ function SlideShow(props: { images: Url[] }) {
         <FontAwesomeIcon icon={faChevronRight} />
       </div>
       <div className={styles['dot-map']}>
-        <span> {computeDotMap(nrOfImages)}
+        <span>{computeDotMap(nrOfImages)}
           <span className={styles['current-dot-postion']} ref={dotPosIndicator}>
             <FontAwesomeIcon style={{ color: '#6100ff' }} icon={faCircle} />
           </span>
@@ -95,10 +91,10 @@ function SlideShow(props: { images: Url[] }) {
 function computeDotMap(nrOfImages: number) {
   const dots = [];
   for (let i = 0; i < nrOfImages; i++) {
-    dots.push(<FontAwesomeIcon key={i} style={{ color: 'gray' }} icon={faCircle} />, '    ');
+    dots.push(<FontAwesomeIcon className={styles['background-dot']} key={i} style={{ color: 'gray' }} icon={faCircle} />);
   }
 
-  return dots
+  return dots;
 }
 
 function alterSliderDirection(direction: Direction): Direction {
