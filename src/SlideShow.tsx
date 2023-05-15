@@ -24,9 +24,9 @@ function SlideShow(props: { images: Url[] }) {
       const sliderPosition = slider.current.style.marginLeft ? Number.parseInt(slider.current.style.marginLeft) : 0;
       const dotMapPosition = dotPosIndicator.current.style.left ? Number.parseInt(dotPosIndicator.current.style.left) : 2;
 
-      console.log(sliderPosition);
-      console.log(dotMapPosition);
-      console.log(direction)
+      // console.log(sliderPosition);
+      // console.log(dotMapPosition);
+      // console.log(direction)
 
       if (direction === 'left' && sliderPosition < 0) {                           // slider moves right (if possible)
         slider.current.style.marginLeft = `${sliderPosition + 100}%`
@@ -47,7 +47,9 @@ function SlideShow(props: { images: Url[] }) {
   }
 
   useEffect(() => {
+    console.log('use effect triggered')
     setInterval(() => {
+      console.log(1)
       if (!autoSliderOn) {
         return;
       }
@@ -56,7 +58,7 @@ function SlideShow(props: { images: Url[] }) {
         moveSlider(alterSliderDirection(sliderDirection));
       }
     }, 4000);
-  }, [])
+  })
 
   return (
     <div className={styles['slide-show-container']}>

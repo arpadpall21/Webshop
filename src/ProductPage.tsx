@@ -42,22 +42,22 @@ function ProductPage() {
       <div className={styles['product-container']}>
         <SlideShow images={images} />
         <div className={styles['content']}>
-          <div className={styles['title-container']}>
+          <div className={styles['title']}>
             <div title={title}> {title} </div>
             <div> {computeRatingVisual(rating)} </div>
           </div>
-          <p className={styles['desc']}> {description} </p>
-          <p className={styles['stock-brand-cat']}> Stock: {stock} </p>
-          <p className={styles['stock-brand-cat']}> Brand: {brand} </p>
-          <p className={styles['stock-brand-cat']}> Category: {category} </p>
+          <p className={styles['description']}> {description} </p>
+          <p className={styles['details']}> Stock: {stock} </p>
+          <p className={styles['details']}> Brand: {brand} </p>
+          <p className={styles['details']}> Category: {category} </p>
           <p className={styles['dicount-percent']}><span> {-discountPercentage} % </span></p>
-          <div className={styles['price-add-cart']}>
+          <div className={styles['price-and-add-cart-button-container']}>
             <div> {price}$ </div>
             <div
               style={{backgroundColor: addProductButtonBackgroundColor}}
               onClick={productInCartHandler}
             >
-              {cartHasThisProduct ? 'Remove from cart' : 'Add to cart'}
+              {cartHasThisProduct ? 'Remove from Cart' : 'Add to Cart'}
             </div>
           </div>
         </div>

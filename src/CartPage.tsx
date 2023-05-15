@@ -19,15 +19,15 @@ function CartPage(): any {
         totalPrice += product.price;
 
         return (
-          <div className={styles['cart-product']} key={product.id}>
+          <div className={styles['product']} key={product.id}>
             <img src={product.thumbnail} alt={product.thumbnail} />
             <Link
-              className={styles['cart-product-title']}
+              className={styles['title']}
               to={`/product/${productId}`}
             >
               {product.title}
             </Link>
-            <span className={styles['cart-product-price']}> {product.price}$ </span>
+            <span className={styles['price']}> {product.price}$ </span>
             <span
               className={styles['remove-product-button']}
               onClick={e => removeProductFromCartHandler(e, product)}

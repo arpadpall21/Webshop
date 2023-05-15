@@ -1,13 +1,11 @@
-.product-list-container {
+.product-card-container {
+  display: inline-block;
   background-color: white;
   border-radius: 10px;
-  height: 430px;
-
-  div {
-    width: 96%;
-    margin: 2%;
-    text-align: left;
-  }
+  text-align: left;
+  padding: 12px;
+  margin: 5px 7px;
+  width: 300px;
 
   .thumbnail-container {
     position: relative;
@@ -31,7 +29,7 @@
     }
   }
 
-  .product-title {
+  .title {
     width: 100%;
     font-weight: bold;
     font-size: 18px;
@@ -71,5 +69,9 @@
     font-size: 18px;
     margin: 0;
     text-decoration: none;
+    
+    &:hover {
+      background-color: gray;
+    }
   }
 }

@@ -21,7 +21,7 @@
       font-size: 25px;
       margin-left: 15px;
 
-      .title-container {
+      .title {
         display: flex;
         align-content: space-between;
         font-weight: bold;
@@ -29,12 +29,13 @@
         div:nth-child(1) {
           margin: auto auto auto 0;
           max-width: auto;
-          height: 60px;
+          height: 35px;
           overflow: hidden;
-          font-size: 50px;
+          font-size: 30px;
         }
 
         div:nth-child(2) {
+          font-size: 25px;
           margin: auto 0 auto auto;
           white-space: nowrap;
           width: 200px;
@@ -42,19 +43,20 @@
         }
       }
 
-      .desc {
-        font-weight: bold;
+      .description {
+        font-size: 20px;
         width: 70%;
         max-height: 90px;
         overflow: hidden;
       }
 
-      .stock-brand-cat {
+      .details {
         color:gray;
       }
 
       .dicount-percent {
         margin: 35px 0;
+        font-size: 20px;
 
         span {
           display: inline;
@@ -65,24 +67,24 @@
         }
       }
 
-      .price-add-cart {
+      .price-and-add-cart-button-container {
         display: flex;
         align-content: space-between;
         font-weight: bold;
 
-        *:nth-child(1) {
+        div:nth-child(1) {
           margin: auto auto auto 0;
           overflow: hidden;
-          font-size: 60px;
+          font-size: 30px;
         }
 
-        *:nth-child(2) {
-          margin: auto 0 auto auto;
+        div:nth-child(2) {
+          font-size: 25px;
           white-space: nowrap;
           text-align: right;
           color: white;
-          padding: 20px 60px;
-          border-radius: 30px;
+          padding: 10px 35px;
+          border-radius: 20px;
 
           &:hover {
             cursor: pointer;
